@@ -1,7 +1,7 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
-export const Route = createRootRoute({
+export const rootRoute = createRootRoute({
   component: () => (
     <>
       <Outlet />
@@ -9,3 +9,12 @@ export const Route = createRootRoute({
     </>
   ),
 })
+
+
+// const notFoundRoute = createRoute({
+//   getParentRoute: () => rootRoute,
+//   path: '*',
+//   component: NotFound,
+// })
+
+// rootRoute.addChildren([notFoundRoute])
