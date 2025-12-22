@@ -10,68 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as AppVeiculosRouteImport } from './routes/app/veiculos'
-import { Route as AppDashboardRouteImport } from './routes/app/dashboard'
-import { Route as App_layoutRouteImport } from './routes/app/__layout'
+import { Route as AuthLayoutRouteImport } from './routes/_AuthLayout'
+import { Route as AuthLayoutVeiculosRouteImport } from './routes/_AuthLayout.veiculos'
+import { Route as AuthLayoutDashboardRouteImport } from './routes/_AuthLayout.dashboard'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppVeiculosRoute = AppVeiculosRouteImport.update({
-  id: '/app/veiculos',
-  path: '/app/veiculos',
+const AuthLayoutRoute = AuthLayoutRouteImport.update({
+  id: '/_AuthLayout',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppDashboardRoute = AppDashboardRouteImport.update({
-  id: '/app/dashboard',
-  path: '/app/dashboard',
-  getParentRoute: () => rootRouteImport,
+const AuthLayoutVeiculosRoute = AuthLayoutVeiculosRouteImport.update({
+  id: '/veiculos',
+  path: '/veiculos',
+  getParentRoute: () => AuthLayoutRoute,
 } as any)
-const App_layoutRoute = App_layoutRouteImport.update({
-  id: '/app/__layout',
-  path: '/app',
-  getParentRoute: () => rootRouteImport,
+const AuthLayoutDashboardRoute = AuthLayoutDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthLayoutRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
-  '/app': typeof App_layoutRoute
-  '/app/dashboard': typeof AppDashboardRoute
-  '/app/veiculos': typeof AppVeiculosRoute
+  '/dashboard': typeof AuthLayoutDashboardRoute
+  '/veiculos': typeof AuthLayoutVeiculosRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
-  '/app': typeof App_layoutRoute
-  '/app/dashboard': typeof AppDashboardRoute
-  '/app/veiculos': typeof AppVeiculosRoute
+  '/dashboard': typeof AuthLayoutDashboardRoute
+  '/veiculos': typeof AuthLayoutVeiculosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_AuthLayout': typeof AuthLayoutRouteWithChildren
   '/login': typeof LoginRoute
-  '/app/__layout': typeof App_layoutRoute
-  '/app/dashboard': typeof AppDashboardRoute
-  '/app/veiculos': typeof AppVeiculosRoute
+  '/_AuthLayout/dashboard': typeof AuthLayoutDashboardRoute
+  '/_AuthLayout/veiculos': typeof AuthLayoutVeiculosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/login' | '/app' | '/app/dashboard' | '/app/veiculos'
+  fullPaths: '/login' | '/dashboard' | '/veiculos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/app' | '/app/dashboard' | '/app/veiculos'
+  to: '/login' | '/dashboard' | '/veiculos'
   id:
     | '__root__'
+    | '/_AuthLayout'
     | '/login'
-    | '/app/__layout'
-    | '/app/dashboard'
-    | '/app/veiculos'
+    | '/_AuthLayout/dashboard'
+    | '/_AuthLayout/veiculos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  AuthLayoutRoute: typeof AuthLayoutRouteWithChildren
   LoginRoute: typeof LoginRoute
-  App_layoutRoute: typeof App_layoutRoute
-  AppDashboardRoute: typeof AppDashboardRoute
-  AppVeiculosRoute: typeof AppVeiculosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -83,35 +78,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/veiculos': {
-      id: '/app/veiculos'
-      path: '/app/veiculos'
-      fullPath: '/app/veiculos'
-      preLoaderRoute: typeof AppVeiculosRouteImport
+    '/_AuthLayout': {
+      id: '/_AuthLayout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/dashboard': {
-      id: '/app/dashboard'
-      path: '/app/dashboard'
-      fullPath: '/app/dashboard'
-      preLoaderRoute: typeof AppDashboardRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_AuthLayout/veiculos': {
+      id: '/_AuthLayout/veiculos'
+      path: '/veiculos'
+      fullPath: '/veiculos'
+      preLoaderRoute: typeof AuthLayoutVeiculosRouteImport
+      parentRoute: typeof AuthLayoutRoute
     }
-    '/app/__layout': {
-      id: '/app/__layout'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof App_layoutRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_AuthLayout/dashboard': {
+      id: '/_AuthLayout/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthLayoutDashboardRouteImport
+      parentRoute: typeof AuthLayoutRoute
     }
   }
 }
 
+interface AuthLayoutRouteChildren {
+  AuthLayoutDashboardRoute: typeof AuthLayoutDashboardRoute
+  AuthLayoutVeiculosRoute: typeof AuthLayoutVeiculosRoute
+}
+
+const AuthLayoutRouteChildren: AuthLayoutRouteChildren = {
+  AuthLayoutDashboardRoute: AuthLayoutDashboardRoute,
+  AuthLayoutVeiculosRoute: AuthLayoutVeiculosRoute,
+}
+
+const AuthLayoutRouteWithChildren = AuthLayoutRoute._addFileChildren(
+  AuthLayoutRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
+  AuthLayoutRoute: AuthLayoutRouteWithChildren,
   LoginRoute: LoginRoute,
-  App_layoutRoute: App_layoutRoute,
-  AppDashboardRoute: AppDashboardRoute,
-  AppVeiculosRoute: AppVeiculosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
