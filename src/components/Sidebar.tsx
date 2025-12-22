@@ -1,13 +1,13 @@
 import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 import { BiChevronLeft, BiChevronRight, BiHome } from 'react-icons/bi';
-import { LuCar } from 'react-icons/lu';
+import { LuCar, LuUsers } from 'react-icons/lu';
 import { useRouterState } from '@tanstack/react-router'
 
 const menuItems = [
-  { id: 'dashboard', label: 'Dashboard', icon: BiHome },
-  { id: 'veiculos', label: 'Veículos', icon: LuCar },
-//   { id: 'customers', label: 'Clientes', icon: Users },
+  { id: '/dashboard', label: 'Dashboard', icon: BiHome },
+  { id: '/veiculos', label: 'Veículos', icon: LuCar },
+  { id: '/clientes', label: 'Clientes', icon: LuUsers },
 //   { id: 'employees', label: 'Funcionários', icon: UserCheck },
 //   { id: 'sales', label: 'Vendas', icon: ShoppingCart },
 //   { id: 'expenses', label: 'Despesas', icon: DollarSign },

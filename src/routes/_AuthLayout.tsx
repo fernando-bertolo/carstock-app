@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar'
 const AppLayout = () => (
   <div className="flex h-screen">
     <Sidebar />
-    <main className="flex-1 p-6 bg-gray-100">
+    <main className="flex-1 p-6 bg-gray-100 h-full overflow-y-auto">
       <Outlet />
     </main>
   </div>
