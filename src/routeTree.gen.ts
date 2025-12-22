@@ -9,86 +9,109 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VeiculosRouteImport } from './routes/veiculos'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AppVeiculosRouteImport } from './routes/app/veiculos'
+import { Route as AppDashboardRouteImport } from './routes/app/dashboard'
+import { Route as App_layoutRouteImport } from './routes/app/__layout'
 
-const VeiculosRoute = VeiculosRouteImport.update({
-  id: '/veiculos',
-  path: '/veiculos',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const AppVeiculosRoute = AppVeiculosRouteImport.update({
+  id: '/app/veiculos',
+  path: '/app/veiculos',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/app/dashboard',
+  path: '/app/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const App_layoutRoute = App_layoutRouteImport.update({
+  id: '/app/__layout',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
-  '/veiculos': typeof VeiculosRoute
+  '/login': typeof LoginRoute
+  '/app': typeof App_layoutRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/veiculos': typeof AppVeiculosRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
-  '/veiculos': typeof VeiculosRoute
+  '/login': typeof LoginRoute
+  '/app': typeof App_layoutRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/veiculos': typeof AppVeiculosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
-  '/veiculos': typeof VeiculosRoute
+  '/login': typeof LoginRoute
+  '/app/__layout': typeof App_layoutRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/veiculos': typeof AppVeiculosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/veiculos'
+  fullPaths: '/login' | '/app' | '/app/dashboard' | '/app/veiculos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/veiculos'
-  id: '__root__' | '/' | '/dashboard' | '/veiculos'
+  to: '/login' | '/app' | '/app/dashboard' | '/app/veiculos'
+  id:
+    | '__root__'
+    | '/login'
+    | '/app/__layout'
+    | '/app/dashboard'
+    | '/app/veiculos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  DashboardRoute: typeof DashboardRoute
-  VeiculosRoute: typeof VeiculosRoute
+  LoginRoute: typeof LoginRoute
+  App_layoutRoute: typeof App_layoutRoute
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppVeiculosRoute: typeof AppVeiculosRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/veiculos': {
-      id: '/veiculos'
-      path: '/veiculos'
-      fullPath: '/veiculos'
-      preLoaderRoute: typeof VeiculosRouteImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
+    '/app/veiculos': {
+      id: '/app/veiculos'
+      path: '/app/veiculos'
+      fullPath: '/app/veiculos'
+      preLoaderRoute: typeof AppVeiculosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/app/dashboard': {
+      id: '/app/dashboard'
+      path: '/app/dashboard'
+      fullPath: '/app/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/__layout': {
+      id: '/app/__layout'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof App_layoutRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  DashboardRoute: DashboardRoute,
-  VeiculosRoute: VeiculosRoute,
+  LoginRoute: LoginRoute,
+  App_layoutRoute: App_layoutRoute,
+  AppDashboardRoute: AppDashboardRoute,
+  AppVeiculosRoute: AppVeiculosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
