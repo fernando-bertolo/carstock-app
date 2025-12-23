@@ -193,7 +193,7 @@ export default function FuncionariosPage() {
         </div>
       </div>
 
-      {/* <FuncionarioModal
+      <FuncionarioModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSave={handleSaveCustomer}
@@ -204,7 +204,7 @@ export default function FuncionariosPage() {
         isOpen={isDetailModalOpen}
         onClose={() => setIsDetailModalOpen(false)}
         customer={selectedCustomer}
-      /> */}
+      />
     </div>
   );
 }
