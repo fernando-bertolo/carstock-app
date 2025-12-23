@@ -7,9 +7,9 @@ import FuncionarioDetalheModal from "./components/FuncionarioDetalheModal";
 export default function FuncionariosPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [funcionarioSelecionado, setFuncionarioSelecionado] = useState(null);
 
-  const customers = [
+  const funcionarios = [
     {
       id: 1,
       name: 'João Silva',
@@ -52,50 +52,49 @@ export default function FuncionariosPage() {
     }
   ];
 
-  const handleNewCustomer = () => {
-    setSelectedCustomer(null);
+  const handleNewEmployee = () => {
+    setFuncionarioSelecionado(null);
     setIsModalOpen(true);
   };
 
-  const handleEditCustomer = (customer: any) => {
-    setSelectedCustomer(customer);
+  const handleEditEmployee = (customer: any) => {
+    setFuncionarioSelecionado(customer);
     setIsModalOpen(true);
   };
 
-  const handleViewCustomer = (customer: any) => {
-    setSelectedCustomer(customer);
+  const handleViewEmployee = (customer: any) => {
+    setFuncionarioSelecionado(customer);
     setIsDetailModalOpen(true);
   };
 
-  const handleSaveCustomer = (customerData: any) => {
-    console.log('Saving customer:', customerData);
-    // Here you would typically save to your backend
+  const handleSaveEmployee = (customerData: any) => {
+    console.log('Saving employee:', customerData);
   };
 
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Clientes</h1>
-          <p className="text-gray-600">Gerencie seus clientes</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Funcionários</h1>
+          <p className="text-gray-600">Gerencie seus funcionários</p>
         </div>
         <button 
-          onClick={handleNewCustomer}
+          onClick={handleNewEmployee}
           className="bg-gray-900 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-gray-800 transition-colors"
         >
           <LuPlus className="w-4 h-4" />
-          <span>Novo Cliente</span>
+          <span>Novo Funcionário</span>
         </button>
       </div>
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-gray-900">Lista de Clientes</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Lista de Funcionários</h3>
             <div className="flex items-center space-x-4">
               <input
                 type="text"
-                placeholder="Buscar clientes..."
+                placeholder="Buscar funcionários..."
                 className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
               />
             </div>
@@ -127,8 +126,8 @@ export default function FuncionariosPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {customers.map((customer) => (
-                <tr key={customer.id} className="hover:bg-gray-50">
+              {funcionarios.map((funcionario) => (
+                <tr key={funcionario.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-10 w-10">
@@ -138,10 +137,10 @@ export default function FuncionariosPage() {
                       </div>
                       <div className="ml-4">
                         <div className="text-sm font-medium text-gray-900">
-                          {customer.name}
+                          {funcionario.name}
                         </div>
                         <div className="text-sm text-gray-500">
-                          Última compra: {customer.lastPurchase}
+                          Última compra: {funcionario.lastPurchase}
                         </div>
                       </div>
                     </div>
@@ -149,34 +148,34 @@ export default function FuncionariosPage() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900 flex items-center space-x-1">
                       <LuMail className="w-3 h-3 text-gray-400" />
-                      <span>{customer.email}</span>
+                      <span>{funcionario.email}</span>
                     </div>
                     <div className="text-sm text-gray-500 flex items-center space-x-1">
                       <LuPhone className="w-3 h-3 text-gray-400" />
-                      <span>{customer.phone}</span>
+                      <span>{funcionario.phone}</span>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {customer.cpf}
+                    {funcionario.cpf}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                      {customer.purchases} {customer.purchases === 1 ? 'compra' : 'compras'}
+                      {funcionario.purchases} {funcionario.purchases === 1 ? 'compra' : 'compras'}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {customer.totalSpent}
+                    {funcionario.totalSpent}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div className="flex items-center space-x-2">
                       <button 
-                        onClick={() => handleViewCustomer(customer)}
+                        onClick={() => handleViewEmployee(funcionario)}
                         className="text-gray-600 hover:text-gray-900 p-1 rounded"
                       >
                         <LuEye className="w-4 h-4" />
                       </button>
                       <button 
-                        onClick={() => handleEditCustomer(customer)}
+                        onClick={() => handleEditEmployee(funcionario)}
                         className="text-gray-600 hover:text-gray-900 p-1 rounded"
                       >
                         <BiEdit className="w-4 h-4" />
@@ -196,14 +195,14 @@ export default function FuncionariosPage() {
       <FuncionarioModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSave={handleSaveCustomer}
-        customer={selectedCustomer}
+        onSave={handleSaveEmployee}
+        customer={funcionarioSelecionado}
       />
 
       <FuncionarioDetalheModal
         isOpen={isDetailModalOpen}
         onClose={() => setIsDetailModalOpen(false)}
-        customer={selectedCustomer}
+        customer={funcionarioSelecionado}
       />
     </div>
   );
