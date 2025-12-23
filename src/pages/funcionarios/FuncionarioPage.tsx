@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { BiEdit } from "react-icons/bi";
 import { LuEye, LuMail, LuPhone, LuPlus, LuTrash2, LuUser } from "react-icons/lu";
-import ClienteModal from "./components/ClienteModal";
-import ClienteDetalheModal from "./components/ClienteDetalheModal";
+import FuncionarioModal from "./components/FuncionarioModal";
+import FuncionarioDetalheModal from "./components/FuncionarioDetalheModal";
 
-export default function ClientesPage() {
+export default function FuncionariosPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
@@ -193,18 +193,18 @@ export default function ClientesPage() {
         </div>
       </div>
 
-      <ClienteModal
+      {/* <FuncionarioModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSave={handleSaveCustomer}
         customer={selectedCustomer}
       />
 
-      <ClienteDetalheModal
+      <FuncionarioDetalheModal
         isOpen={isDetailModalOpen}
         onClose={() => setIsDetailModalOpen(false)}
         customer={selectedCustomer}
-      />
+      /> */}
     </div>
   );
 }

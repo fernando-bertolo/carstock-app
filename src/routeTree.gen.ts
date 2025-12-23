@@ -11,7 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthLayoutRouteImport } from './routes/_AuthLayout'
-import { Route as AuthLayoutVeiculosRouteImport } from './ro./routes/_AuthLayout.clientes
+import { Route as AuthLayoutVeiculosRouteImport } from './routes/_AuthLayout.veiculos'
+import { Route as AuthLayoutFuncionariosRouteImport } from './routes/_AuthLayout.funcionarios'
 import { Route as AuthLayoutDashboardRouteImport } from './routes/_AuthLayout.dashboard'
 import { Route as AuthLayoutClientesRouteImport } from './routes/_AuthLayout.clientes'
 
@@ -29,6 +30,11 @@ const AuthLayoutVeiculosRoute = AuthLayoutVeiculosRouteImport.update({
   path: '/veiculos',
   getParentRoute: () => AuthLayoutRoute,
 } as any)
+const AuthLayoutFuncionariosRoute = AuthLayoutFuncionariosRouteImport.update({
+  id: '/funcionarios',
+  path: '/funcionarios',
+  getParentRoute: () => AuthLayoutRoute,
+} as any)
 const AuthLayoutDashboardRoute = AuthLayoutDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -44,12 +50,14 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/clientes': typeof AuthLayoutClientesRoute
   '/dashboard': typeof AuthLayoutDashboardRoute
+  '/funcionarios': typeof AuthLayoutFuncionariosRoute
   '/veiculos': typeof AuthLayoutVeiculosRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/clientes': typeof AuthLayoutClientesRoute
   '/dashboard': typeof AuthLayoutDashboardRoute
+  '/funcionarios': typeof AuthLayoutFuncionariosRoute
   '/veiculos': typeof AuthLayoutVeiculosRoute
 }
 export interface FileRoutesById {
@@ -58,19 +66,26 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/_AuthLayout/clientes': typeof AuthLayoutClientesRoute
   '/_AuthLayout/dashboard': typeof AuthLayoutDashboardRoute
+  '/_AuthLayout/funcionarios': typeof AuthLayoutFuncionariosRoute
   '/_AuthLayout/veiculos': typeof AuthLayoutVeiculosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/login' | '/clientes' | '/dashboard' | '/veiculos'
+  fullPaths:
+    | '/login'
+    | '/clientes'
+    | '/dashboard'
+    | '/funcionarios'
+    | '/veiculos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/clientes' | '/dashboard' | '/veiculos'
+  to: '/login' | '/clientes' | '/dashboard' | '/funcionarios' | '/veiculos'
   id:
     | '__root__'
     | '/_AuthLayout'
     | '/login'
     | '/_AuthLayout/clientes'
     | '/_AuthLayout/dashboard'
+    | '/_AuthLayout/funcionarios'
     | '/_AuthLayout/veiculos'
   fileRoutesById: FileRoutesById
 }
@@ -102,6 +117,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLayoutVeiculosRouteImport
       parentRoute: typeof AuthLayoutRoute
     }
+    '/_AuthLayout/funcionarios': {
+      id: '/_AuthLayout/funcionarios'
+      path: '/funcionarios'
+      fullPath: '/funcionarios'
+      preLoaderRoute: typeof AuthLayoutFuncionariosRouteImport
+      parentRoute: typeof AuthLayoutRoute
+    }
     '/_AuthLayout/dashboard': {
       id: '/_AuthLayout/dashboard'
       path: '/dashboard'
@@ -122,12 +144,14 @@ declare module '@tanstack/react-router' {
 interface AuthLayoutRouteChildren {
   AuthLayoutClientesRoute: typeof AuthLayoutClientesRoute
   AuthLayoutDashboardRoute: typeof AuthLayoutDashboardRoute
+  AuthLayoutFuncionariosRoute: typeof AuthLayoutFuncionariosRoute
   AuthLayoutVeiculosRoute: typeof AuthLayoutVeiculosRoute
 }
 
 const AuthLayoutRouteChildren: AuthLayoutRouteChildren = {
   AuthLayoutClientesRoute: AuthLayoutClientesRoute,
   AuthLayoutDashboardRoute: AuthLayoutDashboardRoute,
+  AuthLayoutFuncionariosRoute: AuthLayoutFuncionariosRoute,
   AuthLayoutVeiculosRoute: AuthLayoutVeiculosRoute,
 }
 
